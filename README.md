@@ -1,11 +1,8 @@
 ## Javascript Magic the Gathering Simulator
 
-#### Download the project and open index.html to see it in action
----
+Open index.html to see it in action.
 
-**At the bottom of** game.js **or in** index.html *after every other script*
-
-Instantiate a Game with **2 - 3** Players
+To begin, (at the **bottom** of game.js or in index.html *after every other script*) instantiate a Game with **2 - 3** Players
 ```javascript
 var game = new Game([
   new Player("Darren", "0", 20, blueDeck), // currently the only decks are
