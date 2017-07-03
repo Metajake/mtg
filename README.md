@@ -1,10 +1,10 @@
-Javascript Magic the Gathering simulator
+##Javascript Magic the Gathering simulator
 
 
-AT THE BOTTOM OF game.js,
-OR IN index.html (AFTER every other script):
+**At the bottom** OF game.js,
+**Or in** index.html *after every other script*
 
-  Just INSTANTIATE a game with TWO or more PLAYERS
+Instantiate a Game with **2** or more Players
 ```javascript
 var game = new Game([
   new Player("Darren", "0", 20, blueDeck), // currently the only decks are
