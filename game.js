@@ -63,7 +63,6 @@ function Game(players){
     ih("gameStatus", this.turns);
     //Player Turn
     this.players[this.turnCounter].turn(self);
-    cl(this.players);
     //Rotate Turn Counter
     this.rotateTurnCounter()
     //Check if Anyone dead
