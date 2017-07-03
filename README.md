@@ -1,5 +1,6 @@
 ## Javascript Magic the Gathering Simulator
 
+### Download the project and open index.html
 
 **At the bottom of** game.js **or in** index.html *after every other script*
 
