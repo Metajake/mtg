@@ -78,7 +78,7 @@ function Game(players){
     //Each Player Draws Seven Cards
     for(var i = 0;i <7;i++){
       this.players.forEach(function(player){
-        player.draw(self);
+        player.draw(self, true);
       });
     }
 

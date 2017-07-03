@@ -12,20 +12,23 @@ function Creature(type, name, power, life, cost) {
     return toRead;
   };
   this.attack = function(toAttack, battlefieldIndex, attackingOwner){
+    //Tap This Creature
     this.tapped = true;
+    //Select Defending Creature
     toAttack.creatureDefending = toAttack.chooseDefendingCreature();
-    //If Def. Creature exists
+    //If Targeted Player has Defensive Creature
     if(toAttack.creatureDefending.length){
+      //Targeted Player Defends Attack
       toAttack.defend(self, battlefieldIndex, attackingOwner);
     }else{
       //Or Attack Player
-      toAttack.life -= this.power;
-      cl(toAttack.id+" got hit!");
+      toAttack.damage(this.power);
     };
     //Redraw Defending Player Life
     ih(toAttack.lNode, toAttack.life);
   };
   this.defensiveAttack = function(attacker, attackerIndex, owner, attackingOwner){
+    cl(this.name+" attacks "+attacker.name+" back!");
     if(owner.creatureDefending[0].power >= attacker.life){
       attacker.life -= owner.creatureDefending[0].power;
       attackingOwner.battlefield.creatures.splice(attackerIndex, 1);

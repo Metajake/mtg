@@ -19,5 +19,8 @@ Player("name", "index", "amountOfLife, "deck")
 **ToDo:**
   1. Make Pool of Cards of Every Color,
   2. Build Player Decks based on Color parameter
-  3. Add Instant Card Type
-  4. Add Creature Card Abilities
+  3. Add Instant Card Type (ex: fireball, cancel)
+  4. Add Graveyard
+  5. Add Creature Card Abilities
+  6. Defending Player choose Creature with highest defense
+  7. Add Neutral Mana and Activate Card's Neutral Mana Cost
