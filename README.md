@@ -2,7 +2,6 @@
 
 
 **At the bottom of** game.js
-
 **or in** index.html *after every other script*
 
 Instantiate a Game with **2** or more Players
