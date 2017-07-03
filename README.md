@@ -1,4 +1,4 @@
-##Javascript Magic the Gathering simulator
+## Javascript Magic the Gathering simulator
 
 
 **At the bottom** OF game.js,
