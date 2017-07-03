@@ -16,8 +16,8 @@ game.startGame();
 **Player object description:**</br>
 Player("name", "index", "amountOfLife, "deck")
 
-**ToDo:**</br>
-  0. Make Pool of Cards of Every Color,
-  1. Build Player Decks based on Color parameter
-  2. Add Instant Card Type
+**ToDo:**
+  1. Make Pool of Cards of Every Color,
+  2. Build Player Decks based on Color parameter
+  3. Add Instant Card Type
   4. Add Creature Card Abilities

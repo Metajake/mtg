@@ -55,7 +55,7 @@
 
       var game = new Game([
         new Player("Darren", "0", 20, blueDeck),
-        new Player("Tommy", "1", 20, greenDeck)
+        new Player("Tommy", "1", 20, redDeck)
       ]);
 
 ////////////////////////////////////////////////////////////

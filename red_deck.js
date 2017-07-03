@@ -1,5 +1,5 @@
 var redDeck = {
-  colors: ["blk"],
+  colors: ["rd"],
   cards: [
     {
       type: "creature",
