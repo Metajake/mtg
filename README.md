@@ -1,0 +1,1 @@
+Javascript Magic the Gathering simulator
