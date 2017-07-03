@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Magic</title>
+    <style type="text/css">
+      .col{
+        width:33%;
+        float:left;
+      }
+      .row{
+        height:180px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="turn">
+      TURN
+      <span id="gameStatus">0</span>
+    </div>
+    <div class="col">
+      <strong>Darren<span id="l0"></span></strong>
+      <span id="s0" class="status"></span>
+      <div id="p0" class="row"></div>
+      <hr />
+      <strong>Tommy<span id="l1"></span></strong>
+      <span id="s1" class="status"></span>
+      <div id="p1" class="row"></div>
+      <hr />
+      <strong>Other<span id="l2"></span></strong>
+      <span id="s2" class="status"></span>
+      <div id="p2" class="row"></div>
+    </div>
+    <div class="col">
+      <div id="b0" class="row">Test</div>
+      <hr />
+      <div id="b1" class="row">test</div>
+      <hr />
+      <div id="b2" class="row">test</div>
+    </div>
+    <div class="col">
+      <div id="stats"></div>
+    </div>
+    <script src="blue_deck.js"></script>
+    <script src="green_deck.js"></script>
+    <script src="creature.js"></script>
+    <script src="player.js"></script>
+    <script src="game.js"></script>
+    <script src="setup.js"></script>
+  </body>
+</html>
