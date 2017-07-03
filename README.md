@@ -1,10 +1,9 @@
 ## Javascript Magic the Gathering Simulator
 
 
-**At the bottom of** game.js
-**or in** index.html *after every other script*
+**At the bottom of** game.js **or in** index.html *after every other script*
 
-Instantiate a Game with **2** or more Players
+Instantiate a Game with **2 - 3** Players
 ```javascript
 var game = new Game([
   new Player("Darren", "0", 20, blueDeck), // currently the only decks are
@@ -15,13 +14,11 @@ And execute startGame()
 ```javascript
 game.startGame();
 ```
-**player object description**
-
+**Player object description:**</br>
 Player("name", "index", "amountOfLife, "deck")
 
-ToDo:
-
+**ToDo:**</br>
   0. Make Pool of Cards of Every Color,
   1. Build Player Decks based on Color parameter
   2. Add Instant Card Type
-  3. Add Creature Card Abilities
+  4. Add Creature Card Abilities
