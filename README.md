@@ -1,7 +1,7 @@
-## Javascript Magic the Gathering simulator
+## Javascript Magic the Gathering Simulator
 
 
-**At the bottom** OF game.js,
+**At the bottom of** game.js,
 **Or in** index.html *after every other script*
 
 Instantiate a Game with **2** or more Players
