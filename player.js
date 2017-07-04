@@ -1,5 +1,6 @@
-function Player(id, node, life, deck){
+function Player(id, node, life, deck, messagingOn){
   var self = this;
+  this.messagingOn = messagingOn;
   this.id = id;
   this.bNode = "b" +node;
   this.pNode = "p" +node;
@@ -18,13 +19,13 @@ function Player(id, node, life, deck){
   };
   this.damage = function(amount){
     cl(this.id+" got hit!");
-    this.life -= this.power;
+    this.life -= amount;
   }
   this.draw = function(game, toMute){
     //Remove Top Card from the Deck, Add it to Hand
     if(deck.cards.length > 0){
       //If Unmuted Log Card Drawn
-      if(!toMute){cl(this.id+" draws "+this.deck.cards[0].name)};
+      if(!toMute){if(this.messagingOn){cl(this.id+" draws "+this.deck.cards[0].name);};};
       // Add Card to Hand
       this.hand.push(this.deck.cards[0]);
       // Remove Top Card from Deck
@@ -47,14 +48,34 @@ function Player(id, node, life, deck){
   this.playMana = function(){
     for(var i = 0; i<this.hand.length;i++){
       if(this.hand[i].type == "mana"){
-        cl(this.id+" plays "+this.hand[i].name);
+        if(this.messagingOn){cl(this.id+" plays "+this.hand[i].name)};
         this.battlefield.mana.push(this.hand[i]);
         this.hand.splice(i,1);
         return;
       }
     }
   };
-  // USED TURING SUMMONING
+  this.summonCreature = function(){
+    //Look through Cards in Hand
+    for(var i=0;i<this.hand.length;i++){
+      //If Card is a Creature
+      if(this.hand[i].type == "creature"){ //DECOUPLE THIS TO ROUND STATE LOGIC
+        //Compare Cost of Card to Mana
+        if(this.compareCost(this.hand[i])){
+          //Tap Mana Used to Summon
+          for(type in this.hand[i].cost){
+            for(var j=0;j<this.hand[i].cost[type];j++){
+              this.battlefield.mana[j].tapped = true;
+            }
+          }
+          if(this.messagingOn){cl(this.id+ " summons "+this.hand[i].name)};
+          this.battlefield.creatures.push(this.hand[i]);
+          this.hand.splice(i,1);
+          return;
+        };
+      };
+    }
+  };
   this.getUntappedMana = function(){
     var mana = {gr:0,blk:0,blu:0,n:0,wh:0,rd:0};
     for(var i=0;i<this.battlefield.mana.length;i++){
@@ -162,27 +183,6 @@ function Player(id, node, life, deck){
     //Update UI
     game.redrawScreen();
   }
-  this.summonCreature = function(){
-    //Look through Cards in Hand
-    for(var i=0;i<this.hand.length;i++){
-      //If Card is a Creature
-      if(this.hand[i].type == "creature"){ //DECOUPLE THIS TO ROUND STATE LOGIC
-        //Compare Cost of Card to Mana
-        if(this.compareCost(this.hand[i])){
-          //Tap Mana Used to Summon
-          for(type in this.hand[i].cost){
-            for(var j=0;j<this.hand[i].cost[type];j++){
-              this.battlefield.mana[j].tapped = true;
-            }
-          }
-          cl(this.id+ " summons "+this.hand[i].name);
-          this.battlefield.creatures.push(this.hand[i]);
-          this.hand.splice(i,1);
-          return;
-        };
-      };
-    }
-  };
   this.compareCost = function(toCompare){
     var cost;
     var availableMana = {};
