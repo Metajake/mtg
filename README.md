@@ -1,6 +1,6 @@
 ## Javascript Magic the Gathering Simulator
 
-Open index.html to see it in action.
+Visit http://jacobnorth.info/mtg/ or Download and open index.html to see it in action (also, open your browser console).
 
 To begin, (at the **bottom** of setup.js or in index.html *after every other script*) instantiate a Game with **2 - 3** Players
 ```javascript
