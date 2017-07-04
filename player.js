@@ -1,11 +1,12 @@
-function Player(id, node, life, deck, messagingOn){
+function Player(id, life, deck, messagingOn){
   var self = this;
   this.messagingOn = messagingOn;
   this.id = id;
-  this.bNode = "b" +node;
-  this.pNode = "p" +node;
-  this.sNode = "s" +node;
-  this.lNode = "l" +node;
+  this.node = undefined;
+  // this.bNode = "b" +this.node;
+  // this.pNode = "p" +this.node;
+  // this.sNode = "s" +this.node;
+  // this.lNode = "l" +this.node;
   this.deck = deck;
   this.life = life;
   this.hand = [];
@@ -140,19 +141,18 @@ function Player(id, node, life, deck, messagingOn){
         this.creaturesInCombat[i][0].attack(this.target, this.creaturesInCombat[i][1], self);
       }
       this.target.resetDefendingCreatures();
-    }//else{
-      // cl("nothing to attack with");
-    // }
+    }
   }
   this.defend = function(attacking, attackerIndex, attackingOwner){
     cl(this.id+" is defending with "+this.creatureDefending[0].name);
+    //Perform Defending Creature's Attack
+    this.creatureDefending[0].defensiveAttack(attacking, attackerIndex, self, attackingOwner);
     if(attacking.power >= this.creatureDefending[0].life){
       this.creatureDefending[0].life -= attacking.power;
       this.battlefield.creatures.splice(this.creatureDefending[1], 1);
       cl(this.creatureDefending[0].name+" dies! It has "+this.creatureDefending[0].life+" life.");
     }else{
       cl(attacking.name+" is defended against!");
-      this.creatureDefending[0].defensiveAttack(attacking, attackerIndex, self, attackingOwner);
     }
   }
   this.advanceSummonedCreatures = function(){
@@ -161,6 +161,7 @@ function Player(id, node, life, deck, messagingOn){
     }
   };
   this.turn = function(game){
+    ih(this.sNode, "Taking Turn");
     // cl(this.id+" is taking their turn.");
     //Untap Mana, Creatures
     this.untapMana();

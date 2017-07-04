@@ -5,7 +5,7 @@ Open index.html to see it in action.
 To begin, (at the **bottom** of setup.js or in index.html *after every other script*) instantiate a Game with **2 - 3** Players
 ```javascript
 var game = new Game([
-  new Player("Darren", "0", 20, blueDeck), // currently the only decks are
+  new Player("Darren", "0", 20, blueDeck), // decks: whiteDeck, redDeck, blackDeck,
   new Player("Tommy", "1", 20, greenDeck)  // blueDeck, and greenDeck
 ]);
 ```
@@ -17,10 +17,10 @@ game.startGame();
 Player("name", "index", "amountOfLife, "deck")
 
 **ToDo:**
-  1. Make Pool of Cards of Every Color,
-  2. Build Player Decks based on Color parameter
-  3. Add Instant Card Type (ex: fireball, cancel)
-  4. Add Graveyard
-  5. Add Creature Card Abilities
-  6. Defending Player choose Creature with highest defense
-  7. Add Neutral Mana and Activate Card's Neutral Mana Cost
+  * Add Graveyard
+  * Add Turn Step(s) for checking if Instant Cast
+  * Defending Player choose Creature with highest defense
+  * Add Instant Card Type (ex: fireball, cancel)
+  * Activate Card's Neutral Mana Cost and Compare Neutral Cost to any Available Mana
+  * Add Creature Card Abilities
+  * Build Player Decks based on Color parameter

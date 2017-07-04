@@ -6,6 +6,45 @@ function Game(players){
   this.turns = 0;
   this.turnCounter = 0;
   // this.deck = [];
+  this.buildUI = function (){
+    var UIWindow = document.createElement("div");
+    for(var i = 0;i<this.players.length;i++){
+      this.players[i].node = i;
+      this.players[i].bNode = "b" +i;
+      this.players[i].pNode = "p" +i;
+      this.players[i].sNode = "s" +i;
+      this.players[i].lNode = "l" +i;
+      var container = document.createElement("div");
+      var headline = document.createElement("div");
+      var playerName = document.createElement("strong");
+      playerName.appendChild(
+        document.createTextNode(
+          this.players[i].id));
+      var lifeNode = document.createElement("span");
+      var statusNode = document.createElement("span");
+      var handNode = document.createElement("div");
+      var battlefieldNode = document.createElement("div");
+      headline.id = "headline";
+      lifeNode.id = ("l"+i);
+      lifeNode.innerHTML = this.players[i].life;
+      statusNode.id = ("s"+i);
+      statusNode.className = "status";
+      container.className = "row";
+      handNode.id = ("p"+i);
+      handNode.className = "col";
+      battlefieldNode.id = ("b"+i);
+      battlefieldNode.className = "col";
+
+      playerName.appendChild(lifeNode);
+      headline.appendChild(playerName);
+      headline.appendChild(statusNode);
+      container.appendChild(headline);
+      container.appendChild(handNode);
+      container.appendChild(battlefieldNode);
+      UIWindow.appendChild(container);
+    }
+    document.getElementById("UIContainer").appendChild(UIWindow);
+  }
   this.clearUI = function(){
     //Empty Status Divs
     var statuses = document.getElementsByClassName("status");
@@ -58,15 +97,14 @@ function Game(players){
     this.clearUI();
 
     //Update Status
-    ih(("s"+this.turnCounter), "Taking Turn");
     this.turns ++;
     ih("gameStatus", this.turns);
     //Player Turn
     this.players[this.turnCounter].turn(self);
-    //Rotate Turn Counter
-    this.rotateTurnCounter()
     //Check if Anyone dead
     this.checkDead();
+    //Rotate Turn Counter
+    this.rotateTurnCounter()
     //Check If Game Over
     if(this.players.length == 1){
       cl(this.players[0].id+" wins! The Game is Over.");
@@ -74,6 +112,7 @@ function Game(players){
     }
   };
   this.startGame = function(){
+    this.buildUI();
     this.buildDecks();
     //Each Player Draws Seven Cards
     for(var i = 0;i <7;i++){

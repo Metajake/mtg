@@ -29,6 +29,7 @@ function Creature(type, name, power, life, cost) {
   };
   this.defensiveAttack = function(attacker, attackerIndex, owner, attackingOwner){
     cl(this.name+" attacks "+attacker.name+" back!");
+    cl("I'm "+this.name+". I have "+this.power+" power, and my attacker has "+attacker.life+" life.");
     if(owner.creatureDefending[0].power >= attacker.life){
       attacker.life -= owner.creatureDefending[0].power;
       attackingOwner.battlefield.creatures.splice(attackerIndex, 1);
