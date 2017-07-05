@@ -50,13 +50,15 @@ function Game(players){
     var statuses = document.getElementsByClassName("status");
     for(i in statuses){statuses[i].innerHTML='';}
   }
+  // DRAW SCREEN
   this.redrawScreen = function(){
+    // EACH PLAYER
     for(var i = 0;i<this.players.length;i++){
-      //Draw Hand
+      // Hands
       listNames("ol", this.players[i].pNode,this.players[i].hand);
-      //Draw Battlefield
+      // Battlefield
       listNames("ol", this.players[i].bNode, this.players[i].battlefield.mana.concat(this.players[i].battlefield.creatures));
-      //Draw Player Life
+      // Player Life
       ih(this.players[i].lNode,this.players[i].life);
     }
   };
@@ -80,37 +82,63 @@ function Game(players){
     }
 
   };
-  this.checkDead = function(toCheck){
+  this.getRandomPlayer = function(){
+    return this.players[getRandomInt(0,this.players.length)];
+  };
+  this.checkDead = function(){
     for(var i = 0;i<this.players.length;i++){
-      if(this.players[i].isDead()){
-        this.players.splice(i,1);
+      if(this.combatMessaging){cl(this.is+" DIED!");};
+      this.players[i].isDead = (this.players[i].life <= 0) ? true : false;
+    }
+  };
+  // Is Game Over
+  this.isGameOver = function(){
+    var livePlayers = [];
+    for(var i =0;i<this.players.length;i++){
+      if(!this.players[i].isDead){
+        livePlayers.push(this.players[i]);
       }
+    }
+    if(livePlayers.length == 1){
+      cl(this.players[this.turnCounter].id+" wins! The Game is Over.");
+      this.gameOver = true;
     };
   };
-  this.rotateTurnCounter = function(){
-    this.turnCounter ++;
-    if(this.turnCounter == this.players.length){
+  this.checkResetTurnCounter = function(){
+    if(this.turnCounter >= this.players.length){
       this.turnCounter = 0;
     }
   };
-  this.turn = function(){
-    this.clearUI();
-
-    //Update Status
-    this.turns ++;
-    ih("gameStatus", this.turns);
-    //Player Turn
-    this.players[this.turnCounter].turn(self);
-    //Check if Anyone dead
-    this.checkDead();
-    //Rotate Turn Counter
-    this.rotateTurnCounter()
-    //Check If Game Over
-    if(this.players.length == 1){
-      cl(this.players[0].id+" wins! The Game is Over.");
-      this.gameOver = true;
+  this.rotateTurnCounter = function(){
+    this.turnCounter ++;
+    this.checkResetTurnCounter();
+    while(this.players[this.turnCounter].isDead){
+      this.turnCounter ++;
+      this.checkResetTurnCounter();
     }
   };
+  // Game Turn
+  this.turn = function(){
+    // If Game, Rotate Turn Counter
+    if(!game.gameOver){
+      // Remove Outdated GUI
+      this.clearUI();
+      // Update Game Status
+      this.turns ++;ih("gameStatus", this.turns);
+      // Player Turn
+      if(!this.players[this.turnCounter].isDead){
+        // Player Turn
+        this.players[this.turnCounter].turn(self);
+      }
+      // Dead Players?
+      this.checkDead();
+      // Game Over?
+      this.isGameOver();
+      // Rotate Next Turn
+      this.rotateTurnCounter()
+    }
+  };
+  //Starg Game
   this.startGame = function(){
     this.buildUI();
     this.buildDecks();
@@ -121,7 +149,7 @@ function Game(players){
       });
     }
 
-    //Choose Random Player for First Turn
+    // Random Player's First Turn Assignement
     this.turnCounter = getRandomInt(0,this.players.length);
     ih(("s"+this.turnCounter), "First Turn!");
 

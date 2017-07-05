@@ -1,25 +1,28 @@
-function Player(id, life, deck, messagingOn){
+function Player(id, life, deck, messagingOn, combatMessaging){
   var self = this;
   this.messagingOn = messagingOn;
+  this.combatMessaging = combatMessaging;
   this.id = id;
   this.node = undefined;
-  // this.bNode = "b" +this.node;
-  // this.pNode = "p" +this.node;
-  // this.sNode = "s" +this.node;
-  // this.lNode = "l" +this.node;
+  this.bNode = undefined;
+  this.pNode = undefined;
+  this.sNode = undefined;
+  this.lNode = undefined;
   this.deck = deck;
   this.life = life;
+  this.isDead = false;
   this.hand = [];
   this.battlefield = {creatures:[],mana:[]};
   this.target = {};
   this.creaturesInCombat = [];
   this.creatureInCombat = [];
   this.creatureDefending = [];
-  this.isDead = function(){
-    return (this.life <= 0) ? true : false;
-  };
+  // this.checkDead = function(){
+  //   if(this.combatMessaging){cl(this.is+" DIED!");};
+  //   this.isDead = (this.life <= 0) ? true : false;
+  // };
   this.damage = function(amount){
-    cl(this.id+" got hit!");
+    if(this.combatMessaging){cl(this.id+" got hit!");};
     this.life -= amount;
   }
   this.draw = function(game, toMute){
@@ -32,7 +35,7 @@ function Player(id, life, deck, messagingOn){
       // Remove Top Card from Deck
       this.deck.cards.shift();
     }else{
-      cl(this.id+" has no cards left!");
+      if(this.messagingOn){cl(this.id+" has no cards left!");};
     }
     listNames("ol", this.pNode, this.hand);
   };
@@ -86,11 +89,13 @@ function Player(id, life, deck, messagingOn){
     }
     return mana;
   }
+  // TARGET other PLAYER
   this.chooseTarget = function(game){
-    // Return Player to Attack
-    var potentialTarget = game.players[getRandomInt(0,game.players.length)];
-    while(potentialTarget.id == this.id){
-      potentialTarget = game.players[getRandomInt(0,game.players.length)];
+    var potentialTarget = game.getRandomPlayer();
+
+    // IS TARGET NOT SELF and NOT DEAD?
+    while((potentialTarget.id == this.id) || potentialTarget.isDead){
+      potentialTarget = game.getRandomPlayer();
     }
     return potentialTarget;
   }
@@ -137,22 +142,22 @@ function Player(id, life, deck, messagingOn){
       this.target = this.chooseTarget(game);
       //Attack With Each Attacking Creature
       for(var i = 0;i<this.creaturesInCombat.length;i++){
-        cl(this.id+" attacks with "+this.creaturesInCombat[i][0].name+".")
+        if(this.combatMessaging){cl(this.id+" attacks with "+this.creaturesInCombat[i][0].name+".");};
         this.creaturesInCombat[i][0].attack(this.target, this.creaturesInCombat[i][1], self);
       }
       this.target.resetDefendingCreatures();
     }
   }
   this.defend = function(attacking, attackerIndex, attackingOwner){
-    cl(this.id+" is defending with "+this.creatureDefending[0].name);
+    if(this.combatMessaging){cl(this.id+" is defending with "+this.creatureDefending[0].name);};
     //Perform Defending Creature's Attack
     this.creatureDefending[0].defensiveAttack(attacking, attackerIndex, self, attackingOwner);
     if(attacking.power >= this.creatureDefending[0].life){
       this.creatureDefending[0].life -= attacking.power;
       this.battlefield.creatures.splice(this.creatureDefending[1], 1);
-      cl(this.creatureDefending[0].name+" dies! It has "+this.creatureDefending[0].life+" life.");
+      if(this.combatMessaging){cl(this.creatureDefending[0].name+" dies! It has "+this.creatureDefending[0].life+" life.");};
     }else{
-      cl(attacking.name+" is defended against!");
+      if(this.combatMessaging){cl(attacking.name+" is defended against!");};
     }
   }
   this.advanceSummonedCreatures = function(){
@@ -162,7 +167,9 @@ function Player(id, life, deck, messagingOn){
   };
   this.turn = function(game){
     ih(this.sNode, "Taking Turn");
-    // cl(this.id+" is taking their turn.");
+    if(this.messagingOn){
+      cl(this.id+" is taking their turn.");
+    };
     //Untap Mana, Creatures
     this.untapMana();
     this.untapCreatures();
@@ -172,7 +179,7 @@ function Player(id, life, deck, messagingOn){
     }else{
       this.draw(game);
     }
-    //Play Advance Creatures, Mana, Summon Creatures, Attack
+    //Play Advance Creatures, Mana, Summon Creatures, Attack, Check if Dead
     this.advanceSummonedCreatures();
     this.playMana();
     this.summonCreature();

@@ -27,15 +27,14 @@ function Creature(type, name, power, life, cost) {
     //Redraw Defending Player Life
     ih(toAttack.lNode, toAttack.life);
   };
-  this.defensiveAttack = function(attacker, attackerIndex, owner, attackingOwner){
-    cl(this.name+" attacks "+attacker.name+" back!");
-    cl("I'm "+this.name+". I have "+this.power+" power, and my attacker has "+attacker.life+" life.");
-    if(owner.creatureDefending[0].power >= attacker.life){
-      attacker.life -= owner.creatureDefending[0].power;
+  this.defensiveAttack = function(attackingCreature, attackerIndex, owner, attackingOwner){
+    if(owner.combatMessaging){cl(this.name+" attacks "+attackingCreature.name+" back!")};
+    if(owner.creatureDefending[0].power >= attackingCreature.life){
+      attackingCreature.life -= owner.creatureDefending[0].power;
       attackingOwner.battlefield.creatures.splice(attackerIndex, 1);
-      cl(attacker.name+" dies! It has "+ attacker.life+" life.");
+      if(owner.combatMessaging){cl(attackingCreature.name+" dies! It has "+ attackingCreature.life+" life.");};
     }else{
-      cl("The "+owner.creatureDefending[0].name+" is not strong enough to kill the "+attacker.name);
+      if(owner.combatMessaging){cl("The "+owner.creatureDefending[0].name+" is not strong enough to kill the "+attackingCreature.name);};
     }
   }
 }

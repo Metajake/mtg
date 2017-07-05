@@ -1,9 +1,7 @@
 ////////////////////////////////////////////////////////////
       var runButton = document.getElementById("turn");
       runButton.onclick = function(){
-        if(!game.gameOver){
-          game.turn();
-        }
+        game.turn();
       };
       function ih(logTo, toLog){
         document.getElementById(logTo).innerHTML = toLog;
@@ -54,8 +52,11 @@
 ////////////////////////////////////////////////////////////
 
       var game = new Game([
-        new Player("Darren", 20, blueDeck,false),
-        new Player("Tommy", 20, redDeck,false)
+        new Player("Darren", 20, blueDeck,true,false),
+        new Player("Tommy", 20, redDeck,true,false),
+        new Player("Jacob", 20, blackDeck,true,false),
+        new Player("Joanna", 20, greenDeck,true,false),
+        new Player("Glenn", 20, whiteDeck,true,false)
       ]);
 
 ////////////////////////////////////////////////////////////
