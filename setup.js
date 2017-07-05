@@ -52,11 +52,11 @@
 ////////////////////////////////////////////////////////////
 
       var game = new Game([
-        new Player("Darren", 20, blueDeck,true,false),
-        new Player("Tommy", 20, redDeck,true,false),
-        new Player("Jacob", 20, blackDeck,true,false),
-        new Player("Joanna", 20, greenDeck,true,false),
-        new Player("Glenn", 20, whiteDeck,true,false)
+        new Player("Darren", 20, blueDeck,false,true),
+        new Player("Tommy", 20, redDeck,false,true),
+        new Player("Jacob", 20, blackDeck,false,true),
+        new Player("Joanna", 20, greenDeck,false,true),
+        new Player("Glenn", 20, whiteDeck,false,true)
       ]);
 
 ////////////////////////////////////////////////////////////
