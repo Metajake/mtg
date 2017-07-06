@@ -17,7 +17,10 @@ game.startGame();
 Player("name", "index", "amountOfLife, "deck")
 
 **ToDo:**
+  * Make Console log
+  * Selector Toggle Logging
   * Add Graveyard
+  * Color Background Window for Attacking, Defending Players
   * Add Turn Step(s) for checking if Instant Cast
   * Defending Player choose Creature with highest defense
   * Add Instant Card Type (ex: fireball, cancel)

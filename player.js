@@ -72,7 +72,7 @@ function Player(id, life, deck, messagingOn, combatMessaging){
               this.battlefield.mana[j].tapped = true;
             }
           }
-          if(this.messagingOn){cl(this.id+ " summons "+this.hand[i].name)};
+          if(this.messagingOn){cl(this.id+ " summons "+this.hand[i].name);};
           this.battlefield.creatures.push(this.hand[i]);
           this.hand.splice(i,1);
           return;
@@ -160,6 +160,7 @@ function Player(id, life, deck, messagingOn, combatMessaging){
       if(this.combatMessaging){cl(attacking.name+" is defended against!");};
     }
   }
+  // Creature on Second Round
   this.advanceSummonedCreatures = function(){
     for(var i = 0;i< this.battlefield.creatures.length;i++){
       this.battlefield.creatures[i].firstRound = false;

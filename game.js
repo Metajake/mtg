@@ -5,9 +5,8 @@ function Game(players){
   this.firstTurn =true;
   this.turns = 0;
   this.turnCounter = 0;
-  // this.deck = [];
+  this.UIWindow = document.createElement("div");
   this.buildUI = function (){
-    var UIWindow = document.createElement("div");
     for(var i = 0;i<this.players.length;i++){
       this.players[i].node = i;
       this.players[i].bNode = "b" +i;
@@ -24,6 +23,7 @@ function Game(players){
       var statusNode = document.createElement("span");
       var handNode = document.createElement("div");
       var battlefieldNode = document.createElement("div");
+      var announcements = document.createElement("div");
       headline.id = "headline";
       lifeNode.id = ("l"+i);
       lifeNode.innerHTML = this.players[i].life;
@@ -34,6 +34,8 @@ function Game(players){
       handNode.className = "col";
       battlefieldNode.id = ("b"+i);
       battlefieldNode.className = "col";
+      announcements.className = "col";
+      announcements.id = "announcements";
 
       playerName.appendChild(lifeNode);
       headline.appendChild(playerName);
@@ -41,9 +43,10 @@ function Game(players){
       container.appendChild(headline);
       container.appendChild(handNode);
       container.appendChild(battlefieldNode);
-      UIWindow.appendChild(container);
+      this.UIWindow.appendChild(container);
     }
-    document.getElementById("UIContainer").appendChild(UIWindow);
+    container.appendChild(announcements);
+    document.getElementById("UIWrapper").appendChild(this.UIWindow);
   }
   this.clearUI = function(){
     //Empty Status Divs
@@ -61,6 +64,18 @@ function Game(players){
       // Player Life
       ih(this.players[i].lNode,this.players[i].life);
     }
+  };
+  this.write = function(toWrite){
+    var announcements = document.getElementById("announcements");
+    var allAnnouncements = document.querySelectorAll("#announcements span")
+    var marginTop = 15;
+    for(var i = 0;i<allAnnouncements.length;i++){
+      // allAnnouncements[i].style.marginTop -= (i* marginTop);
+      // cl(allAnnouncements[i])
+    }
+    var line = document.createElement("span");
+    line.appendChild(document.createTextNode(toWrite));
+    announcements.appendChild(line);
   };
   this.buildDecks = function(){
     //For Each Player in Game

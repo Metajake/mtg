@@ -1,5 +1,6 @@
 ////////////////////////////////////////////////////////////
       var runButton = document.getElementById("turn");
+      runButton.focus();
       runButton.onclick = function(){
         game.turn();
       };
@@ -52,11 +53,11 @@
 ////////////////////////////////////////////////////////////
 
       var game = new Game([
-        new Player("Darren", 20, blueDeck,false,true),
-        new Player("Tommy", 20, redDeck,false,true),
-        new Player("Jacob", 20, blackDeck,false,true),
-        new Player("Joanna", 20, greenDeck,false,true),
-        new Player("Glenn", 20, whiteDeck,false,true)
+        new Player("Darren", 20, blueDeck,true,true),
+        new Player("Tommy", 20, redDeck, true,true),
+        new Player("Jacob", 20, blackDeck,true,true),
+        new Player("Joanna", 20, greenDeck,true,true),
+        new Player("Mike", 20, whiteDeck,true,true)
       ]);
 
 ////////////////////////////////////////////////////////////
